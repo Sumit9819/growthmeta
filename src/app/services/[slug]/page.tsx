@@ -19,9 +19,8 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   }
 
   return {
-    title: service.metaTitle || `${service.title} | GrowthMeta Services`,
-    description: service.metaDescription || service.description,
-    keywords: service.keywords,
+    title: `${service.title} | GrowthMeta Services`,
+    description: service.description,
   }
 }
 
