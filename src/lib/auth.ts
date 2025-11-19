@@ -1,5 +1,5 @@
 import { getServerSession } from 'next-auth/next'
-import { authOptions } from '@/app/api/auth/[...nextauth]/route'
+import { authOptions } from '@/lib/auth-options'
 import { redirect } from 'next/navigation'
 import { prisma } from '@/lib/prisma'
 
@@ -9,7 +9,7 @@ export async function getSession() {
 
 export async function getCurrentUser() {
   const session = await getSession()
-  
+
   if (!session?.user?.email) {
     return null
   }
@@ -32,21 +32,21 @@ export async function getCurrentUser() {
 
 export async function requireAuth() {
   const user = await getCurrentUser()
-  
+
   if (!user) {
     redirect('/admin/login')
   }
-  
+
   return user
 }
 
 export async function requireAdmin() {
   const user = await getCurrentUser()
-  
+
   if (!user || user.role !== 'ADMIN') {
     redirect('/admin/login')
   }
-  
+
   return user
 }
 
@@ -56,7 +56,7 @@ export function hasPermission(userRole: string, requiredRole: string) {
     EDITOR: 2,
     ADMIN: 3,
   }
-  
-  return roleHierarchy[userRole as keyof typeof roleHierarchy] >= 
-         roleHierarchy[requiredRole as keyof typeof roleHierarchy]
+
+  return roleHierarchy[userRole as keyof typeof roleHierarchy] >=
+    roleHierarchy[requiredRole as keyof typeof roleHierarchy]
 }
