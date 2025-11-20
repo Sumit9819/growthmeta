@@ -2,29 +2,31 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { Menu, X, ChevronDown } from 'lucide-react'
+import { Menu, X } from 'lucide-react'
+import { Button } from '@/components/ui/button'
 
 const navigation = [
-  { name: 'Home', href: '/' },
   { name: 'Services', href: '/services' },
+  { name: 'Work', href: '#case-studies' },
+  { name: 'About', href: '#founder' },
   { name: 'Blog', href: '/blog' },
-  { name: 'About', href: '/about' },
-  { name: 'Contact', href: '/contact' },
 ]
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
-    <header className="bg-white shadow-sm sticky top-0 z-50">
-      <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
+    <header className="bg-white/95 backdrop-blur-sm shadow-sm sticky top-0 z-50 border-b border-gray-100">
+      <nav className="mx-auto flex max-w-7xl items-center justify-between p-4 lg:px-8" aria-label="Global">
+        {/* Logo - Left */}
         <div className="flex lg:flex-1">
           <Link href="/" className="-m-1.5 p-1.5">
             <span className="sr-only">Growth Meta</span>
-            <div className="text-2xl font-bold text-blue-600">Growth Meta</div>
+            <div className="text-2xl font-bold gradient-text">Growth Meta</div>
           </Link>
         </div>
-        
+
+        {/* Mobile menu button */}
         <div className="flex lg:hidden">
           <button
             type="button"
@@ -35,29 +37,30 @@ export function Header() {
             <Menu className="h-6 w-6" aria-hidden="true" />
           </button>
         </div>
-        
-        <div className="hidden lg:flex lg:gap-x-12">
+
+        {/* Center Navigation - Desktop */}
+        <div className="hidden lg:flex lg:gap-x-10">
           {navigation.map((item) => (
             <Link
               key={item.name}
               href={item.href}
-              className="text-sm font-semibold leading-6 text-gray-900 hover:text-blue-600 transition-colors"
+              className="text-sm font-semibold leading-6 text-gray-700 hover:text-primary-600 transition-colors"
             >
               {item.name}
             </Link>
           ))}
         </div>
-        
+
+        {/* CTA Button - Right */}
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <Link
-            href="/contact"
-            className="rounded-md bg-blue-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
-          >
-            Get Started
-          </Link>
+          <Button size="lg" asChild>
+            <Link href="/contact">
+              Book a Free Audit
+            </Link>
+          </Button>
         </div>
       </nav>
-      
+
       {/* Mobile menu */}
       {mobileMenuOpen && (
         <div className="lg:hidden">
@@ -66,7 +69,7 @@ export function Header() {
             <div className="flex items-center justify-between">
               <Link href="/" className="-m-1.5 p-1.5">
                 <span className="sr-only">Growth Meta</span>
-                <div className="text-2xl font-bold text-blue-600">Growth Meta</div>
+                <div className="text-2xl font-bold gradient-text">Growth Meta</div>
               </Link>
               <button
                 type="button"
@@ -92,13 +95,11 @@ export function Header() {
                   ))}
                 </div>
                 <div className="py-6">
-                  <Link
-                    href="/contact"
-                    className="rounded-md bg-blue-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 block text-center"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    Get Started
-                  </Link>
+                  <Button size="lg" className="w-full" asChild>
+                    <Link href="/contact" onClick={() => setMobileMenuOpen(false)}>
+                      Book a Free Audit
+                    </Link>
+                  </Button>
                 </div>
               </div>
             </div>
