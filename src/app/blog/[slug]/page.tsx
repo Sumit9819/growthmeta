@@ -38,13 +38,14 @@ const getBlogPost = async (slug: string) => {
       keywords: 'digital marketing, 2024 trends, AI marketing, voice search, video marketing'
     }
   }
-  
+
   return posts[slug as keyof typeof posts] || null
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const post = await getBlogPost(params.slug)
-  
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params
+  const post = await getBlogPost(slug)
+
   if (!post) {
     return {
       title: 'Post Not Found | GrowthMeta Blog'
@@ -58,8 +59,9 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   }
 }
 
-export default async function BlogPostPage({ params }: { params: { slug: string } }) {
-  const post = await getBlogPost(params.slug)
+export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
+  const post = await getBlogPost(slug)
 
   if (!post) {
     notFound()
@@ -86,18 +88,18 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
                 {post.readingTime} min read
               </span>
               <span className="text-gray-500 text-sm">
-                {post.publishedAt.toLocaleDateString('en-US', { 
-                  year: 'numeric', 
-                  month: 'long', 
-                  day: 'numeric' 
+                {post.publishedAt.toLocaleDateString('en-US', {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric'
                 })}
               </span>
             </div>
-            
+
             <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
               {post.title}
             </h1>
-            
+
             <p className="text-xl text-gray-600">
               {post.excerpt}
             </p>
@@ -105,7 +107,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
 
           {/* Article Content */}
           <Card className="p-8">
-            <div 
+            <div
               className="prose prose-lg max-w-none prose-headings:text-gray-900 prose-p:text-gray-600 prose-a:text-blue-600"
               dangerouslySetInnerHTML={{ __html: post.content }}
             />
