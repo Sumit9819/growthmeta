@@ -1,78 +1,95 @@
 'use client'
 
-import { Search, Megaphone, Target, BarChart3, Mail, Share2, ArrowRight } from 'lucide-react'
+import { Search, Megaphone, Share2, BarChart3, ArrowRight } from 'lucide-react'
 import Link from 'next/link'
+import { Card } from '@/components/ui/card'
 
 const services = [
   {
     icon: Search,
     title: 'SEO Optimization',
-    description: 'Rank higher on Google and drive organic traffic that converts.',
-    color: 'primary',
+    description: 'Dominate search rankings and drive organic traffic that converts into revenue.',
+    gradient: 'from-emerald-500 to-teal-500',
+    bgGradient: 'from-emerald-50 to-teal-50',
   },
   {
     icon: Megaphone,
     title: 'PPC Advertising',
-    description: 'Maximize ROI with data-driven Google Ads and paid campaigns.',
-    color: 'secondary',
+    description: 'Maximize ROI with laser-targeted ads that turn clicks into customers.',
+    gradient: 'from-blue-500 to-cyan-500',
+    bgGradient: 'from-blue-50 to-cyan-50',
   },
   {
     icon: Share2,
-    title: 'Social Media',
-    description: 'Build engaged communities and turn followers into customers.',
-    color: 'primary',
+    title: 'Social Media Marketing',
+    description: 'Build engaged communities and transform followers into brand advocates.',
+    gradient: 'from-purple-500 to-pink-500',
+    bgGradient: 'from-purple-50 to-pink-50',
   },
   {
     icon: BarChart3,
-    title: 'Analytics & Insights',
-    description: 'Make smarter decisions with AI-powered data analysis.',
-    color: 'secondary',
+    title: 'Data Analytics',
+    description: 'Make smarter decisions with AI-powered insights and real-time tracking.',
+    gradient: 'from-orange-500 to-red-500',
+    bgGradient: 'from-orange-50 to-red-50',
   },
 ]
 
 export function ServicesSection() {
   return (
-    <section className="py-20 lg:py-28 bg-gray-50">
+    <section className="py-24 lg:py-32 bg-gradient-to-b from-white to-gray-50">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
           {/* Section Header */}
           <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-5xl font-bold text-gray-900 mb-4">
+            <div className="inline-block px-4 py-2 bg-primary-100 text-primary-700 rounded-full font-semibold text-sm mb-4">
+              What We Do
+            </div>
+            <h2 className="text-4xl lg:text-6xl font-black text-gray-900 mb-6">
               Our Services
             </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              We offer integrated digital solutions to help you grow and scale your revenue.
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto font-medium">
+              End-to-end digital marketing solutions that drive measurable growth
             </p>
           </div>
 
           {/* Service Cards Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+          <div className="grid md:grid-cols-2 gap-8 mb-12">
             {services.map((service, index) => (
               <div
                 key={index}
-                className="group bg-white rounded-xl p-6 border-2 border-gray-200 hover:border-primary-400 hover:shadow-xl transition-all cursor-pointer"
+                className="group relative"
               >
-                <div className={`inline-flex items-center justify-center w-14 h-14 rounded-lg bg-gradient-to-br from-${service.color}-500 to-${service.color === 'primary' ? 'secondary' : 'primary'}-500 mb-4`}>
-                  <service.icon className="w-7 h-7 text-white" />
-                </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">{service.title}</h3>
-                <p className="text-gray-600 mb-4 leading-relaxed">{service.description}</p>
-                <div className="flex items-center text-primary-600 font-semibold group-hover:translate-x-1 transition-transform">
-                  <span className="text-sm">Learn More</span>
-                  <ArrowRight className="ml-1 w-4 h-4" />
-                </div>
+                <div className={`absolute inset-0 bg-gradient-to-br ${service.gradient} rounded-3xl blur-xl opacity-20 group-hover:opacity-30 transition-opacity`}></div>
+
+                <Card className="relative bg-white rounded-3xl p-8 border-2 border-gray-200 hover:border-primary-300 shadow-xl hover:shadow-2xl transition-all h-full">
+                  <div className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br ${service.gradient} shadow-lg mb-6 group-hover:scale-110 transition-transform`}>
+                    <service.icon className="w-8 h-8 text-white" strokeWidth={2.5} />
+                  </div>
+
+                  <h3 className="text-2xl font-bold text-gray-900 mb-4">{service.title}</h3>
+                  <p className="text-gray-600 mb-6 leading-relaxed text-lg">{service.description}</p>
+
+                  <Link
+                    href="/services"
+                    className="inline-flex items-center gap-2 text-primary-600 font-bold group-hover:gap-4 transition-all"
+                  >
+                    <span>Learn More</span>
+                    <ArrowRight className="w-5 h-5" />
+                  </Link>
+                </Card>
               </div>
             ))}
           </div>
 
-          {/* View All Services Link */}
+          {/* CTA */}
           <div className="text-center">
             <Link
               href="/services"
-              className="inline-flex items-center gap-2 text-lg font-semibold text-primary-600 hover:text-primary-700"
+              className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-primary-600 to-secondary-600 text-white font-bold rounded-xl shadow-xl hover:shadow-2xl hover:scale-105 transition-all text-lg"
             >
               View All Services
-              <ArrowRight className="w-5 h-5" />
+              <ArrowRight className="w-6 h-6" />
             </Link>
           </div>
         </div>
