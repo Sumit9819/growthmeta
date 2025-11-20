@@ -20,9 +20,7 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(to bottom,
-      rgb(var(--background-start-rgb)),
-      rgb(var(--background-end-rgb)));
+  background: #ffffff;
   min-height: 100vh;
 }
 
@@ -32,15 +30,22 @@ body {
   }
 
   .glass {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(16, 185, 129, 0.2);
   }
 
   .gradient-text {
-    background: linear-gradient(to right, #10b981, #3b82f6);
+    background: linear-gradient(135deg, #10b981 0%, #3b82f6 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+  }
+
+  .bg-pattern {
+    background-image:
+      linear-gradient(to right, rgba(16, 185, 129, 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(59, 130, 246, 0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
   }
 }
